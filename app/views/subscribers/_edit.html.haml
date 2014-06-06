@@ -1,0 +1,6 @@
+- content_for :express_nav do
+  %p= link_to t('subscribers.show.title'), subscriber_path
+  %p= link_to t('subscribers.index.title'), subscribers_path
+
+%h1= t('.title')
+= render 'form'

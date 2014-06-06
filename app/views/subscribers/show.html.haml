@@ -1,0 +1,18 @@
+- content_for :express_nav do
+  %p= link_to t('.link_edit'), edit_subscriber_path(@subscriber)
+  %p= link_to t('subscribers.index.title'), subscribers_path
+
+%h1= t('.title')
+
+%table.table
+  %tbody
+    %tr
+      %td
+        %strong= t('subscribers.form.email')
+      %td
+        = @subscriber.email
+    %tr
+      %td
+        %strong= t('subscribers.form.state')
+      %td
+        = t "subscribers.index.#{ @subscriber.state }"

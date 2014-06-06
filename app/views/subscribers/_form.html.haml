@@ -1,0 +1,18 @@
+= form_for @subscriber do |f|
+  = render partial: 'the_notification/form', locals: { object: @subscriber }
+
+  .form-group
+    = f.label :email, t('.email')
+    = f.text_field :email, class: 'form-control'
+
+  - if @subscriber.persisted?
+    .form-group.red_font
+      = t '.unconfirmed_state' if @subscriber.confirmation_token
+    .form-group
+      - options = options_for_select(subscriber_states, get_subscriber_state( @subscriber ) )
+      = f.label  :state, t('.state')
+      %br
+      = f.select :state, options, class: 'form-control'
+
+  .form-group
+    = f.submit t('.save'), class: 'btn btn-info'

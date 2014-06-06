@@ -1,0 +1,26 @@
+- content_for :express_nav do
+  %p= link_to t('app.cabinet'), cabinet_path
+
+= render partial: 'the_notification/flash'
+
+%h1= t('.title')   
+
+- if @subscriber.nil? || @subscriber.unactive?
+  = t('.not_subscribed')
+
+- else
+  = form_for @subscriber, :url => subscribe_manage_path, method: :post, class: 'form-inline' do |f|
+    .form-group
+      = f.label :email, t('.email')
+      = f.text_field :email, class: 'form-control', disabled: :true
+
+    .form-group.red_font
+      = t('.not_confirmed_yet') if @subscriber.confirmation_token
+
+    .form-group
+      = f.label :user_send_state, :class => "checkbox" do
+        = t('.manage')
+        = f.check_box :user_send_state
+
+    .form-group
+      = f.submit t('.save'), class: 'btn btn-info' 

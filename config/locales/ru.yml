@@ -1,0 +1,78 @@
+ru:
+  subscribers:
+    form_title: Подписка на рассылку
+    form_placeholder: E-mail
+    form_submit: Отправить
+
+    edit:
+      title: Подписка
+      email: "Подписанный E-mail"
+      manage: "Вкл/Выкл"
+      save: Сохранить
+      not_subscribed: Вы пока не подписаны на рассылку. Но это можно сделать на главной странице.
+      not_confirmed_yet: Email еще не подтвержден. Проверьте почту.
+    update:
+      switching_on: Подписка включена
+      switching_off: Подписка выключена
+    create:
+      token_sended: Вам отправлен код подтверждения подписки
+    already_subscribed: Этот E-mail уже есть в базе подписчиков
+
+    confirm:
+      token_matched: Подписка успешно подтверждена
+      mismatch_token: Подписка не подтверждена. Неверный токен
+      already_confirmed_email: Этот e-mail уже был подтвержден
+
+    unsubscribe:
+      unsubscribed: Подписка отключена
+      bad_link: Неверная ссылка на отключение подписки. Подписка не отключена
+
+    index:
+      title: Подписчики
+
+      show: Просмотр подписчика
+      edit: Редактировать подписчика
+      destroy: Удалить подписчика
+
+      link_new: Новый подписчик
+
+      email: E-mail
+      unsubscribe_link: Отписаться
+      created_at: Создан
+      updated_at: Обновлен
+      manage: "Управлять:"
+
+      active: Активная
+      unactive: Неактивная
+      unconfirmed: Не подтверждена
+
+      unsubscribe_button:
+        title: 'Copy to clipboard: Ctrl+C, Enter'
+
+    create:
+      created: Подписчик успешно создан. Ему отправлен код для подтверждения подписки
+
+    new:
+      title: Новый подписчик
+
+    show:
+      title: Просмотр
+      link_edit: Редактировать
+
+    edit:
+      title: Редактировать подписчика
+
+    update:
+      updated: Подписчик успешно обновлен.
+
+    form:
+      email: E-mail
+      state: Состояние
+      save: Сохранить
+      unconfirmed_state: 'E-mail еще не подтвержден пользователем'
+
+    select_states:
+      enable: Активна
+      disable: Неактивна
+
+
