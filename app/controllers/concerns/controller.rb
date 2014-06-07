@@ -83,13 +83,6 @@ module TheSubscribers
 
       def update
         @subscriber.update(subscriber_params)
-
-        if @subscriber.user_send_state
-          flash.now.notice = t('.switching_on')
-        else
-          flash.now.alert = t('.switching_off')
-        end
-
         render action: :edit
       end
 
@@ -104,7 +97,7 @@ module TheSubscribers
       end
 
       def subscriber_params
-        params.require(:subscriber).permit(:email, :user_send_state)
+        params.require(:subscriber).permit(:email, :state)
       end
     end
   end

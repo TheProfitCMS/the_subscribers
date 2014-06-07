@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_dependency 'the_notification'
   spec.add_dependency 'state_machine'
   spec.add_dependency 'encryptor'
   spec.add_dependency 'haml'
