@@ -11,3 +11,8 @@ end
 
 # Loading of concerns
 require "#{_root_}/config/routes.rb"
+require "#{_root_}/app/controllers/concerns/controller.rb"
+
+%w[ model states crypt ].each do |concern|
+  require "#{_root_}/app/models/concerns/#{concern}.rb"
+end

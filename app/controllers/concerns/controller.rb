@@ -3,7 +3,7 @@ module TheSubscribers
     extend ActiveSupport::Concern
 
     included do
-      include SubscribersCrypt
+      include TheSubscribers::Crypt
       before_action :set_subscriber, only: %w[ show edit update destroy ]
 
       def create
@@ -56,7 +56,7 @@ module TheSubscribers
       # MODERATOR INTERFACE
 
       def index
-        @subscribers = Subscriber.recent.pagination params
+        @subscribers = Subscriber.order('id DESC').pagination params
       end
 
       def new
