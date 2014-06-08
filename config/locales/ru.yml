@@ -14,8 +14,6 @@ ru:
     update:
       switching_on: Подписка включена
       switching_off: Подписка выключена
-    create:
-      token_sended: Вам отправлен код подтверждения подписки
     already_subscribed: Этот E-mail уже есть в базе подписчиков
 
     confirm:
@@ -50,6 +48,7 @@ ru:
         title: 'Copy to clipboard: Ctrl+C, Enter'
 
     create:
+      token_sended: Вам отправлен код подтверждения подписки
       created: Подписчик успешно создан. Ему отправлен код для подтверждения подписки
 
     new:
