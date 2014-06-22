@@ -10,6 +10,7 @@ module TheSubscribers
     end
 
     included do
+      include BaseSorts
       include TheSubscribers::States
 
       validates_presence_of   :email

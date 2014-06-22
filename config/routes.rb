@@ -3,7 +3,14 @@ module TheSubscribers
     def self.mixin mapper
       mapper.get  "unsubscribe/:email" => 'subscribers#unsubscribe',  as: :unsubscribe
 
+      mapper.resources :subscriber_visits, only: [:index]
+
       mapper.resources :subscribers do
+        mapper.collection do
+          mapper.get :full_list
+          mapper.get :active_list
+        end
+
         mapper.member do
           mapper.get :confirm
         end

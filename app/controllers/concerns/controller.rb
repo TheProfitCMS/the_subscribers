@@ -59,6 +59,16 @@ module TheSubscribers
         @subscribers = Subscriber.order('id DESC').pagination params
       end
 
+      def full_list
+        @subscribers = Subscriber.old.all
+        render 'subscribers_list'
+      end
+
+      def active_list
+        @subscribers = Subscriber.old.where(state: :active)
+        render 'subscribers_list'
+      end
+
       def new
         @subscriber = Subscriber.new
       end

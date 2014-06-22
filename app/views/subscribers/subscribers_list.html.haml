@@ -1,0 +1,8 @@
+%p
+  %b
+    Элементов:
+    = @subscribers.count
+
+- @subscribers.each do |subscriber|
+  = subscriber.email
+  %br

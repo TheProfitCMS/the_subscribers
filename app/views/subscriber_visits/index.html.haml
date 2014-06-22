@@ -1,0 +1,18 @@
+- content_for :full_width do
+  = paginate @subscriber_visits
+
+  %table.table.table-striped.table-hover
+    %thead
+      %tr
+        %th Email
+        %th Path
+        %th CreatedAt
+
+    %tbody
+      - @subscriber_visits.each do |visit|
+        %tr
+          %td= visit.email
+          %td= visit.path
+          %td= visit.created_at.to_time.to_s(:db)
+
+  = paginate @subscriber_visits
