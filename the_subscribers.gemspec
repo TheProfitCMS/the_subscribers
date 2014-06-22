@@ -19,6 +19,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'the_notification'
+  spec.add_dependency 'the_simple_sort'
+  spec.add_dependency 'the_pagination'
+
   spec.add_dependency 'state_machine'
   spec.add_dependency 'encryptor'
   spec.add_dependency 'haml'

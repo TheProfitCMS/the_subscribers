@@ -2,15 +2,9 @@ module TheSubscribers
   module Model
     extend ActiveSupport::Concern
 
-    # shortcat for kaminary pagination
-    module ClassMethods
-      def pagination params
-        page(params[:page]).per(params[:per_page])
-      end
-    end
-
     included do
-      include BaseSorts
+      include TheSimpleSort::Base
+      include ThePagination::Base
       include TheSubscribers::States
 
       validates_presence_of   :email

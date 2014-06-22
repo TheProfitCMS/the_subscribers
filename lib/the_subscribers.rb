@@ -1,6 +1,10 @@
 _root_ = File.expand_path('../../',  __FILE__)
 require "the_subscribers/version"
 
+require 'the_notification'
+require 'the_simple_sort'
+require 'the_pagination'
+
 require 'state_machine'
 require 'encryptor'
 require 'haml'
