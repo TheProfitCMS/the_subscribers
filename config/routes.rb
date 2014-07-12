@@ -9,6 +9,7 @@ module TheSubscribers
         mapper.collection do
           mapper.get :full_list
           mapper.get :active_list
+          mapper.delete :delete_selected
         end
 
         mapper.member do

@@ -86,6 +86,15 @@ module TheSubscribers
         end
       end
 
+      def delete_selected
+        if (selected = params[:selected]).present?
+          ids = selected.split(',')
+          Subscriber.where(id: ids).destroy_all
+        end
+
+        render nothing: true
+      end
+
       def destroy
         @subscriber.destroy
         redirect_to subscribers_url
