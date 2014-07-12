@@ -41,9 +41,10 @@
         location.reload()
 
   init: ->
-    do @init_unsubscribe_button
-    do @init_select_all_btn
-    do @init_checkboxes
-    do @set_selected_ids
-    do @init_after_delete
+    if $('[name=selected_subscriber]').length
+      do @init_unsubscribe_button
+      do @init_select_all_btn
+      do @init_checkboxes
+      do @set_selected_ids
+      do @init_after_delete
 
