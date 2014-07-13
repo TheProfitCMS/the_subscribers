@@ -1,5 +1,5 @@
 %p
   Здравствуйте, #{ @subscriber.email }!
 %p Вы можете подтвердить вашу подписку по ссылке:
-%p= link_to 'Подтвердить', confirm_subscriber_url(@subscriber.confirmation_token)
+%p= link_to 'Подтвердить', subscribe_url(@subscriber.encrypted_email)
 %p ArtElectronics

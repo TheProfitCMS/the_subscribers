@@ -1,0 +1,5 @@
+%p
+  Здравствуйте, #{ @subscriber.email }!
+%p Вы можете подтвердить вашу подписку по ссылке:
+%p= link_to 'Подтвердить остановку подписки', unsubscribe_url(@subscriber.encrypted_email)
+%p ArtElectronics

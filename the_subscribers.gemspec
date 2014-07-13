@@ -23,7 +23,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'the_pagination'
 
   spec.add_dependency 'state_machine'
-  spec.add_dependency 'encryptor'
   spec.add_dependency 'haml'
 
   spec.add_development_dependency "bundler", "~> 1.6"

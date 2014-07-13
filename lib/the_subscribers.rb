@@ -6,7 +6,6 @@ require 'the_simple_sort'
 require 'the_pagination'
 
 require 'state_machine'
-require 'encryptor'
 require 'haml'
 
 module TheSubscribers

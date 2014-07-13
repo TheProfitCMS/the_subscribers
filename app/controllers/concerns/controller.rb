@@ -3,54 +3,85 @@ module TheSubscribers
     extend ActiveSupport::Concern
 
     included do
-      include TheSubscribers::Crypt
-      before_action :set_subscriber, only: %w[ show edit update destroy ]
+      before_action :set_subscriber_by_encrypted_email, only: %w[ subscribe unsubscribe ]
+      before_action :set_subscriber,                    only: %w[ show edit update destroy ]
+      before_action :set_subscriber_by_email,           only: %w[ subscribe_request unsubscribe_request ]
 
-      def create
-        @subscriber = Subscriber.new(new_subscriber_params)
-
-        message = if @subscriber.save
-          @subscriber.send_confirm_email!
-          { flash: { notice: t('.token_sended') } }
-        else
-          { flash: { errors: @subscriber.errors.to_a } }
-        end
-
-        redirect_to root_path, message
+      def requests_timeout
+        5.minutes.ago
       end
 
-      # get "subscribers/:token/confirm"
-      def confirm
-        @subscriber = Subscriber.find_by_confirmation_token params[:id]
+      def create
+        @subscriber = Subscriber.where(email: params[:subscriber][:email]).first_or_initialize
 
-        unless @subscriber
-          return redirect_to root_path, { flash: { alert: "Запись о подписке для активации не найдена" } }
+        if @subscriber.new_record? && @subscriber.valid?
+          @subscriber.save
+          @subscriber.send_subscribe_request
+          message = "Вам отправлено письмо для подтверждения действий с подпиской"
+          return redirect_to root_path, { flash: { notice: message } }
         end
 
+        unless @subscriber.save
+          return redirect_to root_path, { flash: { errors: @subscriber.errors.to_a } }
+        end
+
+        subscribe_request
+      end
+
+      def subscribe_request
         message = if @subscriber.active?
-          "Подписка уже активирована"
-        elsif @subscriber.unconfirmed?
-          @subscriber.activate!
-          "Подписка успешно активирована"
+          "Подписка уже активна"
         else
-          "Подписка приостановлена"
+          if @subscriber.updated_at < requests_timeout
+            @subscriber.touch
+            @subscriber.send_subscribe_request
+            "Вам отправлено письмо для подтверждения действий с подпиской"
+          else
+            "Недавно уже выполнялись действия с подписками. Пожалуйста, подождите несколько минут и посторите попытку."
+          end
+        end
+
+        return redirect_to root_path, { flash: { notice: message } }
+      end
+
+      def unsubscribe_request
+        message = if @subscriber.unactive?
+          "Подписка не активна"
+        else
+          if @subscriber.updated_at < requests_timeout
+            @subscriber.touch
+            @subscriber.send_unsubscribe_request
+            "Вам отправлено письмо для подтверждения действий с подпиской"
+          else
+            "Недавно уже выполнялись действия с подписками. Пожалуйста, подождите несколько минут и посторите попытку."
+          end
         end
 
         redirect_to root_path, { flash: { notice: message } }
       end
 
-      def unsubscribe
-        email = decrypt params[:email]
-        @subscriber = Subscriber.find_by_email(email)
-
-        message = if @subscriber
-          @subscriber.to_unactive
-          { flash: { notice: t('.unsubscribed') } }
+      # get "subscribe/:id"
+      def subscribe
+        message = if @subscriber.active?
+          "Подписка уже активирована"
         else
-          { flash: { error: t('.bad_link') } }
+          @subscriber.to_active
+          "Подписка успешно активирована"
         end
 
-        redirect_to root_path, message
+        redirect_to root_path, { flash: { notice: message } }
+      end
+
+      # get "unsubscribe/:id"
+      def unsubscribe
+        message = if @subscriber.unactive?
+          "Подписка уже остановлена"
+        else
+          @subscriber.to_unactive
+          "Подписка успешно остановлена"
+        end
+
+        redirect_to root_path, { flash: { notice: message } }
       end
 
       # MODERATOR INTERFACE
@@ -100,19 +131,20 @@ module TheSubscribers
         redirect_to subscribers_url
       end
 
-      def update
-        @subscriber.update(subscriber_params)
-        render action: :edit
+      private
+
+      def set_subscriber_by_email
+        @subscriber ||= Subscriber.where(email: params[:subscriber][:email]).first
+        return redirect_to root_path, { flash: { alert: "Запись не найдена" } } unless @subscriber
       end
 
-      private
+      def set_subscriber_by_encrypted_email
+        @subscriber = Subscriber.find_by_encrypted_email(params[:email])
+        return redirect_to root_path, { flash: { alert: "Запись не найдена" } } unless @subscriber
+      end
 
       def set_subscriber
         @subscriber = Subscriber.find params[:id]
-      end
-
-      def new_subscriber_params
-        params.require(:subscriber).permit(:email)
       end
 
       def subscriber_params

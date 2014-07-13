@@ -2,6 +2,20 @@ module TheSubscribers
   module Model
     extend ActiveSupport::Concern
 
+    module ClassMethods
+      def crypt str
+        Base64.urlsafe_encode64 str.encrypt
+      end
+
+      def decrypt str
+        Base64.urlsafe_decode64(str).decrypt
+      end
+
+      def find_by_encrypted_email email
+        find_by_email decrypt email
+      end
+    end
+
     included do
       include TheSimpleSort::Base
       include ThePagination::Base
@@ -14,6 +28,12 @@ module TheSubscribers
 
       def activate!
         to_active
+        generate_token
+        save
+      end
+
+      def unactivate!
+        to_unactive
         generate_token
         save
       end
