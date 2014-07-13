@@ -25,7 +25,7 @@
           %td
             %p{ title: t(".#{ subscriber.state }") }= subscriber.email
 
-          %td= content_tag :button, "Ссылка", type: 'submit', class: 'unsubscribe_button', 'data-title' => t('.unsubscribe_button.title'), 'data-text' => unsubscribe_url(crypt(subscriber.email))
+          %td= content_tag :button, "Ссылка", type: 'submit', class: 'unsubscribe_button', 'data-title' => t('.unsubscribe_button.title'), 'data-text' => unsubscribe_url(subscriber.email.to_the_encrypted)
 
           %td= subscriber.created_at.strftime('%d.%m.%Y')
           %td= subscriber.updated_at.strftime('%d.%m.%Y')
