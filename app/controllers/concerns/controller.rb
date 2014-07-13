@@ -37,7 +37,7 @@ module TheSubscribers
             @subscriber.send_subscribe_request
             "Вам отправлено письмо для подтверждения действий с подпиской"
           else
-            "Недавно уже выполнялись действия с подписками. Пожалуйста, подождите несколько минут и посторите попытку."
+            "Недавно уже выполнялись действия с подписками. Пожалуйста, подождите несколько минут и повторите попытку."
           end
         end
 
@@ -53,7 +53,7 @@ module TheSubscribers
             @subscriber.send_unsubscribe_request
             "Вам отправлено письмо для подтверждения действий с подпиской"
           else
-            "Недавно уже выполнялись действия с подписками. Пожалуйста, подождите несколько минут и посторите попытку."
+            "Недавно уже выполнялись действия с подписками. Пожалуйста, подождите несколько минут и повторите попытку."
           end
         end
 
@@ -87,7 +87,7 @@ module TheSubscribers
       # MODERATOR INTERFACE
 
       def index
-        @subscribers = Subscriber.order('id DESC').pagination params
+        @subscribers = Subscriber.recent.pagination params
       end
 
       def full_list

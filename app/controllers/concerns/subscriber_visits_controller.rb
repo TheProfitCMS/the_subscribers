@@ -3,7 +3,7 @@ module TheSubscribers
     extend ActiveSupport::Concern
 
     def index
-      @subscriber_visits = SubscriberVisit.pagination(params)
+      @subscriber_visits = SubscriberVisit.recent.pagination(params)
     end
   end
 end
