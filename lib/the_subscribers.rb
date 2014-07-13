@@ -19,6 +19,6 @@ require "#{_root_}/config/routes.rb"
   require "#{_root_}/app/controllers/concerns/#{concern}.rb"
 end
 
-%w[ model states crypt subscriber_visit ].each do |concern|
+%w[ model subscriber_visit ].each do |concern|
   require "#{_root_}/app/models/concerns/#{concern}.rb"
 end
