@@ -139,7 +139,7 @@ module TheSubscribers
       end
 
       def set_subscriber_by_encrypted_email
-        @subscriber = Subscriber.find_by_encrypted_email(params[:email])
+        @subscriber = Subscriber.find_by_email params[:email].to_the_decrypted
         return redirect_to root_path, { flash: { alert: "Запись не найдена" } } unless @subscriber
       end
 
