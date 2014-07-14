@@ -4,9 +4,9 @@
   %table.table.table-striped.table-hover
     %thead
       %tr
-        %th Email
-        %th Path
-        %th CreatedAt
+        %th= link_to 'Email↕', simple_sort_url(:email, params), title: :email
+        %th= link_to 'Path↕',  simple_sort_url(:path, params),  title: :path
+        %th= link_to 'CreatedAt↕', simple_sort_url(:created_at, params), title: :created_at
 
     %tbody
       - @subscriber_visits.each do |visit|

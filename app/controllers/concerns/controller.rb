@@ -87,7 +87,7 @@ module TheSubscribers
       # MODERATOR INTERFACE
 
       def index
-        @subscribers = Subscriber.recent.pagination params
+        @subscribers = Subscriber.recent(:created_at).simple_sort(params).pagination params
       end
 
       def full_list

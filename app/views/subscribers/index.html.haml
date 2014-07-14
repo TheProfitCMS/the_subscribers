@@ -13,19 +13,20 @@
     %thead
       %tr
         %th= check_box_tag :select_all, nil, false, id: nil
-        %th= t('.email')
-        %th= t('.unsubscribe_link')
-        %th= t('.created_at')
-        %th= t('.updated_at')
+        %th= link_to 'Email↕',      simple_sort_url(:email, params), title: :email
+        %th= link_to 'Status↕',     simple_sort_url(:state, params), title: :state
+        %th= link_to 'Created at↕', simple_sort_url(:created_at, params), title: :created_at
+        %th= link_to 'Updated at↕', simple_sort_url(:updated_at, params), title: :updated_at
         %th= t('.manage')
     %tbody
       - @subscribers.each.with_index do |subscriber, i|
         %tr{ class: state_color( subscriber.state_name ) }
-          %td= check_box_tag :selected_subscriber, subscriber.id, true, id: nil
+          %td= check_box_tag :selected_subscriber, subscriber.id, false, id: nil
           %td
             %p{ title: t(".#{ subscriber.state }") }= subscriber.email
 
-          %td= content_tag :button, "Ссылка", type: 'submit', class: 'unsubscribe_button', 'data-title' => t('.unsubscribe_button.title'), 'data-text' => unsubscribe_url(subscriber.email.to_the_encrypted)
+          %td= subscriber.state
+          / %td= content_tag :button, "Ссылка", type: 'submit', class: 'unsubscribe_button', 'data-title' => t('.unsubscribe_button.title'), 'data-text' => unsubscribe_url(subscriber.email.to_the_encrypted)
 
           %td= subscriber.created_at.strftime('%d.%m.%Y')
           %td= subscriber.updated_at.strftime('%d.%m.%Y')

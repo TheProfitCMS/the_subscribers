@@ -3,7 +3,7 @@ module TheSubscribers
     extend ActiveSupport::Concern
 
     def index
-      @subscriber_visits = SubscriberVisit.recent.pagination(params)
+      @subscriber_visits = SubscriberVisit.recent(:created_at).simple_sort(params).pagination(params)
     end
   end
 end
