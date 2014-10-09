@@ -6,6 +6,7 @@ module TheSubscribers
       include TheSimpleSort::Base
       include ThePagination::Base
 
+      validate :email_format
       validates_presence_of   :email
       validates_uniqueness_of :email, case_sensitive: false
 
@@ -26,6 +27,14 @@ module TheSubscribers
 
       def send_unsubscribe_request
         SubscribeMailer.unsubscribe_request(self).deliver
+      end
+
+      private
+
+      def email_format
+        if self.email.present?
+          errors.add(:email, I18n.t('subscribers.email_format')) unless self.email.match(/\A\S+@\S+\.\S+\z/mix)
+        end
       end
     end
   end

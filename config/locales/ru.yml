@@ -3,6 +3,9 @@ ru:
     form_title: Подписка на рассылку
     form_placeholder: E-mail
     form_submit: Отправить
+    confirm_email: Подтверждение подписки
+    stop_email:  Подтверждение остановки подписки
+    email_format: 'должен быть вида box@mail.com'
 
     edit:
       title: Подписка
