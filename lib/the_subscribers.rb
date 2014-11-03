@@ -16,6 +16,10 @@ end
 # Loading of concerns
 require "#{_root_}/config/routes.rb"
 
+%w[ mailer ].each do |concern|
+  require "#{_root_}/app/mailers/concerns/#{concern}.rb"
+end
+
 %w[ controller subscriber_visits_controller ].each do |concern|
   require "#{_root_}/app/controllers/concerns/#{concern}.rb"
 end
