@@ -14,4 +14,10 @@
     = t('.not_confirmed_yet') if @subscriber.confirmation_token
 
   .form-group
-    = f.submit t('.save'), class: 'btn btn-info'
+    - options = options_for_select(subscriber_states, get_subscriber_state(@subscriber))
+    = f.label  :state, t('.state')
+    %br
+    = f.select :state, options, class: 'form-control'
+
+  .form-group
+    = f.submit t('save', scope: %w[ subscribers edit ] ), class: 'btn btn-info'

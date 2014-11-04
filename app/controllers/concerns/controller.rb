@@ -108,13 +108,8 @@ module TheSubscribers
       def edit; end
 
       def update
-        @subscriber.assign_attributes(subscriber_params)
-
-        if @subscriber.send("to_#{ @state }")
-          redirect_to subscribers_path, notice: t('.updated')
-        else
-          render action: :edit
-        end
+        @subscriber.update_attributes(subscriber_params)
+        redirect_to edit_subscriber_path(@subscriber), notice: t('.updated')
       end
 
       def delete_selected
